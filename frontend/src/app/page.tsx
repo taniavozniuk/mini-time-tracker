@@ -58,7 +58,7 @@ export default function Home() {
             </a>
 
             <a
-              href="////"
+              href="https://mini-time-tracker-f7nsposds-taniavozniuks-projects.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.demoLink}
