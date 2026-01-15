@@ -1,0 +1,37 @@
+
+.headerWithBack {
+  position: relative;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.backIconButton {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #2563eb;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.backIconButton:hover {
+  color: #1d4ed8;
+}
+
+.historyContainer {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 3rem 1.5rem 6rem;
+}
+
+.pageTitle {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+  margin-bottom: 3rem;
+}
