@@ -58,7 +58,7 @@ export default function Home() {
             </a>
 
             <a
-              href="https://mini-time-tracker-ten.vercel.app/"
+              href="https://mini-time-tracker-ten.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.demoLink}
