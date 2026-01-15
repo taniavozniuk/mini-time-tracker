@@ -6,31 +6,42 @@ import {
   MenuItem,
   Select,
   TextField,
+  Alert,
 } from "@mui/material";
 import styles from "./TimeEntryForm.module.css";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useState } from "react";
-
-const options = [
-  { value: "viso", label: "Viso Internal" },
-  { value: "client-a", label: "Client A" },
-  { value: "client-b", label: "Client B" },
-  { value: "personal", label: "Personal Development" },
-];
+import { useTimeEntryForm } from "../hooks/useTimeEntries";
+import { PROJECT_OPTIONS } from "../constants/projects";
 
 export const TimeEntryForm = () => {
-  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(dayjs());
+  const {
+    selectedDate,
+    setSelectedDate,
+    project,
+    setProject,
+    hours,
+    setHours,
+    description,
+    setDescription,
+    error,
+    loading,
+    handleSubmit,
+  } = useTimeEntryForm();
+
   return (
     <div className={styles.wrapper}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        {error && (
+          <Alert severity="error" sx={{ marginBottom: 2 }}>
+            {error}
+          </Alert>
+        )}
 
-      <form className={styles.form}>
         <div className={styles.formGroup}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Дата"
-              minDate={dayjs()}
               value={selectedDate}
               onChange={(newValue) => setSelectedDate(newValue)}
             />
@@ -42,7 +53,8 @@ export const TimeEntryForm = () => {
             <InputLabel className={styles.label}>Проєкт</InputLabel>
             <Select
               label="Проєкт"
-              defaultValue=""
+              value={project}
+              onChange={(e) => setProject(e.target.value)}
               className={styles.select}
               MenuProps={{
                 classes: { paper: styles.menuPaper },
@@ -51,7 +63,7 @@ export const TimeEntryForm = () => {
               <MenuItem value="" disabled>
                 Оберіть проєкт
               </MenuItem>
-              {options.map((option) => (
+              {PROJECT_OPTIONS.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
@@ -64,6 +76,8 @@ export const TimeEntryForm = () => {
           <TextField
             label="Години"
             type="number"
+            value={hours}
+            onChange={(e) => setHours(e.target.value)}
             inputProps={{
               step: 0.25,
               min: 0.25,
@@ -72,6 +86,7 @@ export const TimeEntryForm = () => {
             }}
             fullWidth
             placeholder="наприклад: 7.5"
+            required
           />
         </div>
 
@@ -80,10 +95,13 @@ export const TimeEntryForm = () => {
             label="Опис роботи"
             multiline
             rows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             fullWidth
             InputProps={{
               className: styles.textarea,
             }}
+            required
           />
         </div>
 
@@ -93,8 +111,9 @@ export const TimeEntryForm = () => {
           size="large"
           type="submit"
           className={styles.submitButton}
+          disabled={loading}
         >
-          Зберегти
+          {loading ? "Збереження..." : "Зберегти"}
         </Button>
       </form>
     </div>
