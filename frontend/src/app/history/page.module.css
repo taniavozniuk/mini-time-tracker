@@ -34,3 +34,94 @@
   text-align: center;
   margin-bottom: 3rem;
 }
+
+.emptyText {
+  text-align: center;
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin-top: 3rem;
+}
+
+.dayGroup {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.dayHeader h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.dayTotal {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.entriesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.entryCard {
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border-left: 4px solid #2563eb;
+}
+
+.entryDate {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.entryProject {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.entryHours {
+  font-size: 1rem;
+  color: #2563eb;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.entryDesc {
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.grandTotal {
+  background: #2563eb;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 2rem;
+}
+
+.grandTotal strong {
+  font-weight: 700;
+  font-size: 1.5rem;
+}

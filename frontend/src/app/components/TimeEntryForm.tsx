@@ -10,70 +10,24 @@ import {
 } from "@mui/material";
 import styles from "./TimeEntryForm.module.css";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { timeEntriesApi } from "../api/timeEntries";
-
-const options = [
-  { value: "viso", label: "Viso Internal" },
-  { value: "client-a", label: "Client A" },
-  { value: "client-b", label: "Client B" },
-  { value: "personal", label: "Personal Development" },
-];
+import { useTimeEntryForm } from "../hooks/useTimeEntries";
+import { PROJECT_OPTIONS } from "../constants/projects";
 
 export const TimeEntryForm = () => {
-  const router = useRouter();
-  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(dayjs());
-  const [project, setProject] = useState<string>("");
-  const [hours, setHours] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    // Валідація
-    if (!selectedDate) {
-      setError("Будь ласка, оберіть дату");
-      return;
-    }
-    if (!project) {
-      setError("Будь ласка, оберіть проєкт");
-      return;
-    }
-    if (!hours || parseFloat(hours) <= 0) {
-      setError("Будь ласка, введіть кількість годин (більше 0)");
-      return;
-    }
-    if (!description.trim()) {
-      setError("Будь ласка, введіть опис роботи");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      await timeEntriesApi.create({
-        date: selectedDate.toISOString(),
-        project,
-        hours: parseFloat(hours),
-        description: description.trim(),
-      });
-      // Перенаправлення на головну сторінку після успішного збереження
-      router.push("/");
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message ||
-          err.message ||
-          "Помилка при збереженні запису"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    selectedDate,
+    setSelectedDate,
+    project,
+    setProject,
+    hours,
+    setHours,
+    description,
+    setDescription,
+    error,
+    loading,
+    handleSubmit,
+  } = useTimeEntryForm();
 
   return (
     <div className={styles.wrapper}>
@@ -109,7 +63,7 @@ export const TimeEntryForm = () => {
               <MenuItem value="" disabled>
                 Оберіть проєкт
               </MenuItem>
-              {options.map((option) => (
+              {PROJECT_OPTIONS.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
